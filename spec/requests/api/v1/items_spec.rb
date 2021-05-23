@@ -2,10 +2,7 @@ require 'rails_helper'
 
 
 RSpec.describe "/items", type: :request do
-  let(:valid_items) {FactoryBot.create_list(:random_item, 20)}
-
-  let(:invalid_items) {FactoryBot.create_list(:random_merchant, 20)}
-
+  let(:valid_items) {FactoryBot.create_list(:random_item, 100)}
   let(:valid_headers) { Hash["Content-Type", "application/json"] }
 
   describe "GET /index" do
@@ -18,7 +15,7 @@ RSpec.describe "/items", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      item = valid_items.last 
+      item = valid_items.last
       get api_v1_item_url(item), as: :json
       expect(response).to be_successful
     end
