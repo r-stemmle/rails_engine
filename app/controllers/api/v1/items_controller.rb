@@ -1,11 +1,13 @@
 class Api::V1::ItemsController < ApplicationController
+  ITEMS_PER_PAGE = 20
   before_action :set_item, only: [:show, :update, :destroy]
 
   # GET /items
   def index
-    @items = Item.all
+    @page = params.fetch(:page, 0).to_i
+    @items = Item.offset(@page * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE)
+    render json: ItemSerializer.new(@items).serializable_hash.to_json
 
-    render json: @items
   end
 
   # GET /items/1
