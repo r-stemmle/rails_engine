@@ -1,5 +1,4 @@
 class Api::V1::MerchantsController < ApplicationController
-
   before_action :set_merchant, only: [:show, :update, :destroy]
 
   # GET /merchants
@@ -12,7 +11,7 @@ class Api::V1::MerchantsController < ApplicationController
 
   # GET /merchants/1
   def show
-    render json: @merchant
+    render json: MerchantSerializer.new(@merchant).serializable_hash
   end
 
   # POST /merchants
@@ -43,7 +42,11 @@ class Api::V1::MerchantsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_merchant
-      @merchant = Merchant.find(params[:id])
+      @merchant = Merchant.find(params[:id]) || not_found
+    end
+
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
     end
 
     # Only allow a trusted parameter "white list" through.

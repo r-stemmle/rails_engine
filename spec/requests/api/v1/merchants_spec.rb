@@ -74,4 +74,18 @@ RSpec.describe "/merchants", type: :request do
       expect(JSON.parse(response.body)["data"].size).to eq(20)
     end
   end
+
+  describe "/api/v1/merchants/{{merchant_id}}" do
+    it "happy path, fetch one merchant by id" do
+      merchant = valid_merchants.first
+      get "/api/v1/merchants/#{merchant.id}", headers: valid_headers, as: :json
+      expect(response).to be_successful
+      expect(JSON.parse(response.body)["data"].keys).to eq(["id", "type", "attributes"])
+    end
+
+    it "sad path, bad integer id returns 404" do
+      valid_merchants
+      expect { get '/api/v1/merchants/8923987297' }.to raise_exception(ActiveRecord::RecordNotFound)
+    end
+  end
 end
