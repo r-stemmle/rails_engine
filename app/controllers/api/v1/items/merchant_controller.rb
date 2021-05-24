@@ -20,5 +20,4 @@ class Api::V1::Items::MerchantController < ApplicationController
   def dude_wheres_my_record
     render json: {:status => 404, :error => 'Not Found'}
   end
-
 end

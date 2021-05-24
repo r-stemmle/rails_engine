@@ -18,7 +18,6 @@ class Api::V1::ItemsController < ApplicationController
     if @item.save
       render json: ItemSerializer.new(@item).serializable_hash, status: :created, location: api_v1_item_path(@item)
     else
-      # require "pry"; binding.pry
       render json: @item.errors, status: :unprocessable_entity
     end
   end
@@ -34,6 +33,15 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     @item.destroy
+  end
+
+  def find_all
+    @items = Item.search(params[:name])
+    if @items.first.nil?
+      render json: {data: []}
+    else
+      render json: ItemSerializer.new(@items).serializable_hash
+    end
   end
 
   private

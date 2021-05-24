@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe "GET /api/v1/items/{{item_id}}/merchant", type: :request do
   let(:valid_headers) { Hash["Content-Type", "application/json"] }
+  
   it "happy path, fetch one merchant by item id" do
-    #we need item
     merchant = create(:random_merchant)
     item = create(:random_item, merchant: merchant)
     get "/api/v1/items/#{item.id}/merchant", headers: valid_headers, as: :json
