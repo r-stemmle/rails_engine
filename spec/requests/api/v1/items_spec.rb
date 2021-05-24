@@ -9,6 +9,15 @@ RSpec.describe "/items", type: :request do
       unit_price: 123.45,
       merchant_id: Merchant.last.id
     }
+  }
+
+  let(:new_attributes) {
+    {
+      name: "New",
+      description: "Newness",
+      unit_price: 50.45,
+      merchant_id:  Merchant.last.id
+    }
 
   }
   let(:invalid_attributes) {
@@ -124,6 +133,25 @@ RSpec.describe "/items", type: :request do
       post '/api/v1/items', params: { item: invalid_attributes }, headers: valid_headers, as: :json
       expect(Item.count).to eq(100)
       expect(JSON.parse(response.body)).to be_a Hash
+    end
+  end
+
+  describe "PUT /api/v1/items/item_id" do
+    it "happy path it updates the item with valid attributes" do
+      item = valid_items.last
+      get "/api/v1/items/#{item.id}", headers: valid_headers, as: :json
+      price_1 = JSON.parse(response.body)["data"]["attributes"]["unit_price"]
+      put "/api/v1/items/#{item.id}", params: { item: new_attributes }, headers: valid_headers, as: :json
+      expect(JSON.parse(response.body)).to be_a Hash
+      price_2 = JSON.parse(response.body)["data"]["attributes"]["unit_price"]
+      expect(price_1).to_not eq(price_2)
+    end
+
+    it "sad path with bad attributes it returns 404" do
+      item = valid_items.last
+      expect { put "/api/v1/items/#{item.id}",
+               params: { item: invalid_attributes },
+               headers: valid_headers, as: :json }.to raise_exception(ActionController::RoutingError)
     end
   end
 

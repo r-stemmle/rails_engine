@@ -25,8 +25,9 @@ class Api::V1::ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      render json: @item
+      render json: ItemSerializer.new(@item).serializable_hash
     else
+      raise ActionController::RoutingError.new('Not Found')
       render json: @item.errors, status: :unprocessable_entity
     end
   end

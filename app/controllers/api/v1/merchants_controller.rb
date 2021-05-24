@@ -14,7 +14,7 @@ class Api::V1::MerchantsController < ApplicationController
 
   private
     def set_merchant
-      @merchant = Merchant.find(params[:id]) || not_found
+      @merchant = Merchant.find(params[:id]) or not_found
     end
 
     def not_found
