@@ -38,10 +38,12 @@ group :development, :test do
   gem 'faker'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  gem 'pry'
 end
 
 group :test do
   gem 'simplecov'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 group :development do

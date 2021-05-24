@@ -1,50 +1,54 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :update, :destroy]
 
-  # GET /items
   def index
-    @items = Item.all
-
-    render json: @items
+    per_page = params.fetch(:per_page, 20).to_i
+    page = [params.fetch(:page, 1).to_i, 1].max
+    @items = Item.offset((page - 1) * per_page).limit(per_page)
+    render json: ItemSerializer.new(@items).serializable_hash.to_json
   end
 
-  # GET /items/1
   def show
-    render json: @item
+    render json: ItemSerializer.new(@item).serializable_hash
   end
 
-  # POST /items
   def create
     @item = Item.new(item_params)
 
     if @item.save
-      render json: @item, status: :created, location: @item
+      render json: ItemSerializer.new(@item).serializable_hash, status: :created, location: api_v1_item_path(@item)
     else
       render json: @item.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /items/1
   def update
     if @item.update(item_params)
-      render json: @item
+      render json: ItemSerializer.new(@item).serializable_hash
     else
+      raise ActionController::RoutingError.new('Not Found')
       render json: @item.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /items/1
   def destroy
     @item.destroy
   end
 
+  def find_all
+    @items = Item.search(params[:name])
+    if @items.first.nil?
+      render json: {data: []}
+    else
+      render json: ItemSerializer.new(@items).serializable_hash
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def item_params
       params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
     end
