@@ -81,6 +81,9 @@ RSpec.describe "/merchants", type: :request do
       get "/api/v1/merchants/#{merchant.id}", headers: valid_headers, as: :json
       expect(response).to be_successful
       expect(JSON.parse(response.body)["data"].keys).to eq(["id", "type", "attributes"])
+      expect(JSON.parse(response.body)["data"]["id"]).to eq("#{merchant.id}")
+      expect(JSON.parse(response.body)["data"]["type"]).to eq("merchant")
+      expect(JSON.parse(response.body)["data"]["attributes"]).to be_a Hash 
     end
 
     it "sad path, bad integer id returns 404" do
