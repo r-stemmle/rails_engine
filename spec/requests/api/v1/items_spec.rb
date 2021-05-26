@@ -108,8 +108,6 @@ RSpec.describe "/items", type: :request do
 
     it "sad path, bad integer id or string returns 404" do
       valid_items
-      # get '/api/v1/items/8923987297', headers: valid_headers, as: :json
-      # require "pry"; binding.pry
       expect { get '/api/v1/items/8923987297' }.to raise_exception(ActiveRecord::RecordNotFound)
       expect { get '/api/v1/items/string-instead-of-integer' }.to raise_exception(ActiveRecord::RecordNotFound)
     end

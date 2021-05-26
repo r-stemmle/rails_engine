@@ -18,6 +18,17 @@ describe "GET /api/v1/revenue/merchants/{{merchant_id}}" do
   it "happy path, fetch revenue for merchant id" do
     get "/api/v1/revenue/merchants/#{@m1.id}", headers: valid_headers, as: :json
     body = JSON.parse(response.body, symbolize_names: true)
-    # require "pry"; binding.pry
+    expect(response.status).to eq(200)
+    expect(body).to be_a Hash
+    expect(body[:data]).to be_a Hash
+    expect(body[:data].size).to eq(3)
+    expect(body[:data][:id]).to be_a String
+    expect(body[:data][:attributes]).to be_a Hash
+    expect(body[:data][:attributes].size).to eq(1)
+    expect(body[:data][:attributes][:revenue]).to be_a Float
+  end
+
+  it "sad path, bad integer id returns 404" do
+    expect {get '/api/v1/revenue/merchants/235674322' }.to raise_exception(ActiveRecord::RecordNotFound)
   end
 end
