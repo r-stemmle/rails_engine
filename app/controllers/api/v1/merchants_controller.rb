@@ -23,11 +23,7 @@ class Api::V1::MerchantsController < ApplicationController
 
   private
     def set_merchant
-      @merchant = Merchant.find(params[:id]) or not_found
-    end
-
-    def not_found
-      raise ActionController::RoutingError.new('Not Found')
+      @merchant = Merchant.find(params[:id])
     end
 
     def merchant_params

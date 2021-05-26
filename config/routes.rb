@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
+      get 'revenue/items'
       get 'revenue/merchants'
       get 'revenue/merchants(/:id)', to: 'revenue#merchant'
       get 'merchants/find'
