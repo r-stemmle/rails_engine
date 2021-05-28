@@ -17,15 +17,7 @@ class Api::V1::RevenueController < ApplicationController
 
   def merchant
     @revenue = Merchant.revenue(@merchant)
-    render json: {
-      data: {
-        id: "#{@merchant.id}",
-        type: :merchant_revenue,
-        attributes: {
-          revenue: @revenue
-        }
-      }
-    }
+    render json: MerchantRevenueSerializer.new(@merchant, @revenue).serialize
   end
 
   def items

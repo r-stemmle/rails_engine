@@ -1,5 +1,6 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :update, :destroy]
+  rescue_from ActionController::ParameterMissing, with: :no_params
 
   def index
     per_page = params.fetch(:per_page, 20).to_i
@@ -26,8 +27,7 @@ class Api::V1::ItemsController < ApplicationController
     if @item.update(item_params)
       render json: ItemSerializer.new(@item).serializable_hash
     else
-      raise ActionController::RoutingError.new('Not Found')
-      render json: @item.errors, status: :unprocessable_entity
+      render json: {errors: 'invalid attributes'}, status: 422
     end
   end
 
@@ -51,5 +51,9 @@ class Api::V1::ItemsController < ApplicationController
 
     def item_params
       params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
+    end
+
+    def no_params
+      render json: {errors: 'no attributes'}, status: 422
     end
 end

@@ -25,8 +25,4 @@ class Api::V1::MerchantsController < ApplicationController
     def set_merchant
       @merchant = Merchant.find(params[:id])
     end
-
-    def merchant_params
-      params.require(:merchant).permit(:name)
-    end
 end
