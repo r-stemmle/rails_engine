@@ -18,7 +18,7 @@ Rails 5.2.6
 ### Installing
 A step by step series of examples that tell you how to get a development environment running
 
-video
+[how-to video](https://www.loom.com/share/f59f65d203a144c691c9d2e3cc0a47dc)
 
 `fork` and `clone` this repo  
 run `bundle install`  
