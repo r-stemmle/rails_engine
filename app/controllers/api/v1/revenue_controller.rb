@@ -10,11 +10,6 @@ class Api::V1::RevenueController < ApplicationController
     end
   end
 
-  def weekly
-    @revenues = Invoice.weekly_revenue
-    render json: WeeklyRevenueSerializer.new(@revenues)
-  end
-
   def merchant
     @revenue = Merchant.revenue(@merchant)
     render json: MerchantRevenueSerializer.new(@merchant, @revenue).serialize
