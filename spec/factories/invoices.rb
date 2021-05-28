@@ -1,6 +1,8 @@
 FactoryBot.define do
+  invoice_status = ['packaged', 'shipped']
   factory :random_invoice, class: Invoice do
-    status { rand(0..2) }
+    status { 'shipped' }
+
     association :customer, factory: :random_customer
     association :merchant, factory: :random_merchant
   end

@@ -26,5 +26,9 @@ RSpec.describe Api::V1::ItemsController, type: :routing do
     it "routes to #destroy" do
       expect(delete: "/api/v1/items/1").to route_to("api/v1/items#destroy", id: "1")
     end
+
+    it "routes to #find_all" do
+      expect(get: "api/v1/items/find_all").to route_to("api/v1/items#find_all")
+    end
   end
 end

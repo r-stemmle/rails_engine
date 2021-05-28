@@ -18,6 +18,13 @@ RSpec.describe "/merchants", type: :request do
       merchant = valid_merchants.first
       get api_v1_merchant_url(merchant), as: :json
       expect(response).to be_successful
+      body = JSON.parse(response.body, symbolize_names: true)
+      expect(body).to be_a Hash
+      expect(body[:data]).to be_a Hash
+      expect(body[:data][:id]).to be_a String
+      expect(body[:data][:type]).to be_a String
+      expect(body[:data][:attributes]).to be_a Hash
+      expect(body[:data][:attributes][:name]).to be_a String
     end
   end
 
@@ -83,7 +90,7 @@ RSpec.describe "/merchants", type: :request do
       expect(JSON.parse(response.body)["data"].keys).to eq(["id", "type", "attributes"])
       expect(JSON.parse(response.body)["data"]["id"]).to eq("#{merchant.id}")
       expect(JSON.parse(response.body)["data"]["type"]).to eq("merchant")
-      expect(JSON.parse(response.body)["data"]["attributes"]).to be_a Hash 
+      expect(JSON.parse(response.body)["data"]["attributes"]).to be_a Hash
     end
 
     it "sad path, bad integer id returns 404" do
