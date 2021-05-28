@@ -23,7 +23,7 @@ RSpec.describe Item, type: :model do
       @invoice = create(:random_invoice, merchant: @m1)
       @invoice2 = create(:random_invoice, merchant: @m2)
       @ii = create(:random_invoice_item, invoice: @invoice, item: @item)
-      @ii2 = create(:random_invoice_item, invoice: @invoice2, item: @item2, quantity: 1, unit_price: 1)
+      @ii2 = create(:random_invoice_item, invoice: @invoice2, item: @item2, quantity: 1, unit_price: 0)
       @transaction = create(:random_transaction, invoice: @invoice)
       @transaction2 = create(:random_transaction, invoice: @invoice2)
 
