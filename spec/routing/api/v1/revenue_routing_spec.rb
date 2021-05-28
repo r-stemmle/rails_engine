@@ -11,11 +11,11 @@ RSpec.describe Api::V1::RevenueController, type: :routing do
     end
 
     it "routes to #merchants" do
-      expect(get: "/api/v1/revenue/merchants").to route_to("api/v1/revenue#merchants")
+      expect(get: "/api/v1/revenue/merchants").to route_to("api/v1/revenue/merchants#index")
     end
 
     it "routes to #merchant" do
-      expect(get: "/api/v1/revenue/merchants/1").to route_to("api/v1/revenue#merchant", id: "1")
+      expect(get: "/api/v1/revenue/merchants/1").to route_to("api/v1/revenue/merchants#show", id: "1")
     end
   end
 end
