@@ -1,24 +1,34 @@
-# README
+## Rails_Engine
+Turing MOD 3 Backend project to:
+ - Expose an API
+ - Use serializers to format JSON responses
+ - Test API exposure
+ - Compose advanced ActiveRecord queries to analyze information stored in SQL databases
+ - Write basic SQL statements without the assistance of an ORM
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Getting Started
 
-Things you may want to cover:
+These instructions will give you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on deploying the project on a live system.
 
-* Ruby version
+##### Prerequisites
 
-* System dependencies
+Ruby 2.5.3  
+Rails 5.2.6
 
-* Configuration
+### Installing
+A step by step series of examples that tell you how to get a development environment running
 
-* Database creation
+video
 
-* Database initialization
+`fork` and `clone` this repo  
+run `bundle install`  
+run `rails db:{drop,create,migrate,seed}`  
+run `rails db:schema:dump` and check that you `schema.rb` exists and has tables
+run `bundle exec rspec` to check if all tests are passing  
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Versioning  
+This is `Version 1.0` of rails_engine
 
-* Deployment instructions
-
-* ...
+#### Authors  
+Ryan Stemmle
