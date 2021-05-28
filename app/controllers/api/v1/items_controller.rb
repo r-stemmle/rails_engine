@@ -27,7 +27,7 @@ class Api::V1::ItemsController < ApplicationController
     if @item.update(item_params)
       render json: ItemSerializer.new(@item).serializable_hash
     else
-      render json: {errors: 'invalid attributes'}, status: 422
+      render json: {errors: 'invalid attributes'}, status: 404
     end
   end
 

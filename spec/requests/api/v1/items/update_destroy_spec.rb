@@ -63,13 +63,13 @@ RSpec.describe "items update and destroy test", type: :request do
       expect(price_1).to_not eq(price_2)
     end
 
-    it "sad path with bad attributes it returns 422" do
+    it "sad path with bad attributes it returns 404" do
       item = valid_items.last
       put "/api/v1/items/#{item.id}", params: { item: invalid_attributes }, headers: valid_headers, as: :json
       body = JSON.parse(response.body, symbolize_names: true)
       expect(body).to be_a Hash
       expect(body[:errors]).to eq("invalid attributes")
-      expect(response.status).to eq(422)
+      expect(response.status).to eq(404)
     end
 
     it "sad path with no attributes it returns 422" do

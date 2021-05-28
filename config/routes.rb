@@ -5,8 +5,8 @@ Rails.application.routes.draw do
         get 'weekly', to: 'weekly#index'
         get 'merchants', to: 'merchants#index'
         get 'merchants(/:id)', to: 'merchants#show'
+        get 'items', to: 'items#index'
       end
-      get 'revenue/items'
       get 'merchants/find'
       get 'items/find_all'
       resources :items do
